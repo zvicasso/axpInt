@@ -80,5 +80,5 @@ export async function action({request}: ActionFunctionArgs) {
     }
 
     //redirect to the page that displays all of Ishea's home town schools
-    return redirect("/homeTownSchools")
+    return redirect("/schools/Harare")
 }

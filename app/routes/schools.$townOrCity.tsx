@@ -12,18 +12,18 @@ interface School{
     emailDomain?: string,
     address:[{
         id: string,
-        nameOrNumber: string,
+        nameOrNumber?: string,
         street?: string,
         street2?: string,
-        townOrCity: string,
+        townOrCity?: string,
         region?: string,
-        addressCode: string,
-        country: string,
+        addressCode?: string,
+        country?: string,
     }]
 }
 
 //Load schools in Harare from the database
-export default async function schools({request}: LoaderFunctionArgs){
+export default async function schools({params}: LoaderFunctionArgs){
     
     // Create a client to connect to the edgedb database
     const client = await edgedb.createClient();
@@ -39,19 +39,9 @@ export default async function schools({request}: LoaderFunctionArgs){
             name,
             seniorSchool,
             juniorSchool,
-            emailDomain,
-            address:[{
-                id,
-                nameOrNumber,
-                street,
-                street2,
-                townOrCity,
-                region,
-                addressCode,
-                country,
-            }]
-            }FILTER .address.townOrCity = 'Harare';
-        `);
+            emailDomain
+            }FILTER .address.townOrCity = $params.townOrCity;
+        `,{params});
     
         //Log the result to the console for debugging purposes
         console.log(schoolsInHarare)
