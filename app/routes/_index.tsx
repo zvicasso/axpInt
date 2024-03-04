@@ -1,45 +1,73 @@
-import { Link } from "@remix-run/react"
-import logo from "../images/Anxend Logo.svg"
-import bee from "../images/Buzzbee_Headset_and_Clipboard 1.png"
-
 import type { MetaFunction } from "@remix-run/node"
+import { Form } from "@remix-run/react"
 
-export const meta: MetaFunction = () => [{ title: "Interview Project" }]
+export const meta: MetaFunction = () => [{ title: "Project 1: Home Town Schools" }]
 
 export default function Index() {
   return (
-    <div className="min-h-screen bg-anxpurple-300 py-6">
-      <div className="container">
-        <img className="h-5 w-auto" src={logo} alt="Anxend logo" />
+    <>
+      <div>
+        <h1>Add School:</h1>
       </div>
-
-      <div className="flex lg:h-screen lg:items-center">
-        <div className="container flex flex-col lg:flex-row">
-          <div>
-            <h1 className="mt-10 font-montserrat text-5xl text-white drop-shadow-xl">
-              Welcome to the Anxend Software Engineer Interview
-            </h1>
-            <p className="mt-8 font-montserrat text-xl text-white">
-              Pick a project to take part.
-            </p>
-            <Link
-              className="mt-8 inline-block rounded-full bg-anxpurple-700 px-16 py-4 font-montserrat text-white hover:bg-anxwhite-300 hover:text-anxgreen-300 hover:shadow-xl"
-              to="/"
-              // This button goes nowhere, please look at the readme in the repo 🙂
-            >
-              Read the Readme
-            </Link>
-            <p className="mt-8 font-montserrat text-xl text-white ">
-              Best of luck and thanks for taking part.
-            </p>
-          </div>
-          <div className="h-1/3">
-            <div className="h-1/3">
-              <img className="lg:-mt-28 lg:block" src={bee} alt="Anxend logo" />
-            </div>
-          </div>
+      <Form action="/school" method="post">
+        <div>
+          <label htmlFor="name">School Name:</label>
+          <input required type="text" id="name" name="name"/>
         </div>
-      </div>
-    </div>
+        
+        <div>
+          <label htmlFor="seniorSchool">Senior School?</label>
+          <input type="checkbox"  id="seniorSchool"  name="seniorSchool"/>  
+        </div>
+
+        <div>
+          <label htmlFor="juniorSchool">Junior School?</label>
+          <input type="checkbox" id="juniorSchool" name="juniorSchool"/>
+        </div>
+
+        <div>
+          <label htmlFor="emailDomain">Email Domain:</label>
+          <input type="text" name="emailDomain" id="emailDomain" defaultValue="" />
+        </div>
+
+        <p>Address</p>
+        <div>
+          <label htmlFor="nameOrNumber">Name or Number</label>
+          <input required type="text" name="nameOrNumber" id="nameOrNumber" />
+        </div>
+
+        <div>
+          <label htmlFor="street">Street Line 1:</label>
+          <input type="text" name="street" id="street"  defaultValue=""/>
+        </div>
+
+        <div>
+          <label htmlFor="street2">Street Line 2:</label>
+          <input type="text" name="street2" id="street" defaultValue=""/>
+        </div>
+
+        <div>
+          <label htmlFor="townOrCity">Town/City:</label>
+          <input required type="text" name="townOrCity" id="townOrCity"/>
+        </div>
+
+        <div>
+          <label htmlFor="region">Region:</label>
+          <input type="text" name="region" id="region" defaultValue=""/>
+        </div>
+
+        <div>
+          <label htmlFor="addressCode">Address Code:</label>
+          <input required type="text" name="addressCode" id="addressCode" />
+        </div>
+
+        <div>
+          <label htmlFor="country">Country:</label>
+          <input required type="text" name="country" id="country" />
+        </div>
+
+        <button type="submit">Create School</button>
+      </Form>
+    </>
   )
 }
