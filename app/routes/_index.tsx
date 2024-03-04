@@ -1,11 +1,13 @@
+//import necessary modules from Remix and EdgeDB
 import type { MetaFunction } from "@remix-run/node"
 import { Form } from "@remix-run/react"
 import { useState } from "react";
 
+//Define the page metadata (title)
 export const meta: MetaFunction = () => [{ title: "Project 1: Home Town Schools" }]
 
 export default function Index() {
-
+  // Initialize form state using React's useState hook
   const [formData, setFormData] = useState({
     name: '',
     seniorSchool: '',
@@ -20,6 +22,7 @@ export default function Index() {
     country:''
   });
 
+  // Handle input changes and update form state
   const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     const newValue = type === 'checkbox' ? checked : value;
