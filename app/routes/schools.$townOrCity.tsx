@@ -1,5 +1,6 @@
 // Import the necessary edgedb and Remix modules
 import {  LoaderFunctionArgs, } from '@remix-run/node';
+import { useSearchParams } from '@remix-run/react';
 import * as edgedb from 'edgedb';
 
 
@@ -10,7 +11,7 @@ interface School{
     seniorSchool?: boolean,
     juniorSchool?: boolean,
     emailDomain?: string,
-    address:[{
+    address?:{
         id: string,
         nameOrNumber?: string,
         street?: string,
@@ -19,12 +20,11 @@ interface School{
         region?: string,
         addressCode?: string,
         country?: string,
-    }]
+    }[]
 }
 
 //Load schools in Harare from the database
 export default async function schools({params}: LoaderFunctionArgs){
-    
     // Create a client to connect to the edgedb database
     const client = await edgedb.createClient();
     
@@ -35,13 +35,13 @@ export default async function schools({params}: LoaderFunctionArgs){
         // Query the database for the schools in Harare using EdgeQL
         schoolsInHarare = await client.query(`
             SELECT School {
-            id,
-            name,
-            seniorSchool,
-            juniorSchool,
-            emailDomain
-            }FILTER .address.townOrCity = $params.townOrCity;
-        `,{params});
+                id,
+                name,
+                seniorSchool,
+                juniorSchool,
+                emailDomain,
+            } FILTER .address.townOrCity = $townOrCity;
+        `,{townOrCity: params.townOrCity});
     
         //Log the result to the console for debugging purposes
         console.log(schoolsInHarare)
